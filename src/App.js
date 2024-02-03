@@ -35,20 +35,35 @@ function Accordion({ data }) {
           currentOpen={currentOpen}
           onOpen={setCurrentOpen}
           title={el.title}
-          text={el.text}
           num={i + 1}
           key={el.title}
-        />
+        >
+          {el.text}
+        </AccordionItem>
       ))}
+      <AccordionItem
+        currentOpen={currentOpen}
+        onOpen={setCurrentOpen}
+        title="random"
+        num={4}
+        key="testamente1"
+      >
+        <p>This is a test</p>
+        <ul>
+          <li>Test 1</li>
+          <li>Test 2</li>
+          <li>Test 3</li>
+        </ul>
+      </AccordionItem>
     </div>
   );
 }
 
-function AccordionItem({ num, title, text, currentOpen, onOpen }) {
+function AccordionItem({ num, title, currentOpen, onOpen, children }) {
   const isOpen = num === currentOpen;
 
   function handleToggle() {
-    onOpen(num);
+    onOpen(isOpen ? null : num);
   }
 
   return (
@@ -56,7 +71,7 @@ function AccordionItem({ num, title, text, currentOpen, onOpen }) {
       <p className="number">{num < 9 ? `0${num}` : { num }}</p>
       <p className="title">{title}</p>
       <p className="icon">{isOpen ? "-" : "+"}</p>
-      {isOpen && <div className="content-box">{text}</div>}
+      {isOpen && <div className="content-box">{children}</div>}
     </div>
   );
 }
