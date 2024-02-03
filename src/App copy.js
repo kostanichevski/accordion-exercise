@@ -25,15 +25,12 @@ export default function App() {
 }
 
 function Accordion({ data }) {
-  const [currentOpen, setCurrentOpen] = useState(null);
   return (
     <div className="accordion">
       {/* el is the element (object) and we then select the title and text from that object (faqs) */}
       {/* i is the index of the item in the array, which is actually needed to automatically get the numbers of the question easily */}
       {data.map((el, i) => (
         <AccordionItem
-          currentOpen={currentOpen}
-          onOpen={setCurrentOpen}
           title={el.title}
           text={el.text}
           num={i + 1}
@@ -44,11 +41,11 @@ function Accordion({ data }) {
   );
 }
 
-function AccordionItem({ num, title, text, currentOpen, onOpen }) {
-  const isOpen = num === currentOpen;
+function AccordionItem({ num, title, text }) {
+  const [isOpen, setIsOpen] = useState(false);
 
   function handleToggle() {
-    onOpen(num);
+    setIsOpen((current) => !isOpen);
   }
 
   return (
